@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"  # MongoDB Standard-Port
+    volumes:
+      - ./data/db:/data/db  # Daten werden auf deinem lokalen System gespeichert
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+
+  jupyter:
+    image: jupyter/scipy-notebook:latest
+    container_name: jupyter-notebook
+    ports:
+      - "8888:8888"  # Jupyter Notebook-Standard-Port
+    volumes:
+      - ./notebooks:/home/jovyan/work  # Notebook-Daten werden auf deinem lokalen System gespeichert
+      - ./quelldateien:/home/jovyan/files  # Mount local folder for Excel and CSV files
+    environment:
+      - JUPYTER_TOKEN=mytoken  # Authentifizierungstoken für Jupyter Notebook
+    depends_on:
+      - mongodb
