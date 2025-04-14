@@ -15,6 +15,14 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=example
+  dashboard:
+    build: .
+    ports:
+      - "8501:8501"
+    container_name: life_expectancy_dashboard
+    restart: always
+    volumes:
+      - .:/app
 
   jupyter:
     image: jupyter/scipy-notebook:latest
@@ -28,3 +36,11 @@ services:
       - JUPYTER_TOKEN=mytoken # Authentifizierungstoken für Jupyter Notebook
     depends_on:
       - mongodb
+
+# Stop the container
+  #docker stop life_expectancy_dashboard
+
+  # Remove the container
+  #docker rm life_expectancy_dashboard
+
+  #docker rm -f life_expectancy_dashboard
