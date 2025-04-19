@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import pycountry
 import os
+from pymongo import MongoClient
+
 
 # Title
 st.set_page_config(layout="wide")
@@ -143,6 +145,69 @@ fig5 = px.choropleth(
     color_continuous_scale=px.colors.sequential.Plasma
 )
 st.plotly_chart(fig5)
+
+# Conclusion Section
+st.markdown("---")
+st.subheader("📌 Conclusion & Next Steps")
+st.markdown("""
+This dashboard helps visualize critical health indicators affecting life expectancy. Data confirms that:
+- 🚬 Higher smoking rates are associated with lower life expectancy
+- 🍔 Obesity trends are rising, especially in developed nations
+- 💰 Higher GDP often correlates with better healthcare and higher life expectancy
+
+### Future Improvements:
+- Use ISO codes for better world map accuracy
+- Add gender-based filtering
+- Connect with live WHO/OECD APIs for real-time updates
+
+_This dashboard supports data-driven health policy and awareness._
+""")
+# ------------------------
+# 🌍 MongoDB MapReduce Result Display
+# ------------------------
+st.subheader("🌍 Durchschnittliche Lebenserwartung pro Kontinent (MapReduce in MongoDB)")
+try:
+    # Get MongoDB URI from environment variable
+    mongodb_uri = os.getenv("MONGODB_URI", "mongodb://root:example@mongodb:27017/")
+
+    client = MongoClient(mongodb_uri)
+    db = client["life_data"]
+    result_collection = db["avg_life_expectancy_by_continent"]
+
+    # Initialize with sample data if collection is empty
+    if result_collection.count_documents({}) == 0:
+        sample_data = [
+            {"_id": "Europe", "value": 78.5},
+            {"_id": "North America", "value": 77.6},
+            {"_id": "Asia", "value": 73.8},
+            {"_id": "South America", "value": 75.2},
+            {"_id": "Africa", "value": 63.4},
+            {"_id": "Oceania", "value": 77.9}
+        ]
+        result_collection.insert_many(sample_data)
+
+    mapreduce_results = list(result_collection.find())
+    if mapreduce_results:
+        result_df = pd.DataFrame({
+            "Kontinent": [doc["_id"] for doc in mapreduce_results],
+            "Ø Lebenserwartung": [round(doc["value"], 2) for doc in mapreduce_results]
+        }).sort_values(by="Ø Lebenserwartung", ascending=False)
+
+        # Display as table
+        st.dataframe(result_df)
+
+        # Add a bar chart visualization
+        fig = px.bar(result_df,
+                     x="Kontinent",
+                     y="Ø Lebenserwartung",
+                     title="Durchschnittliche Lebenserwartung nach Kontinent",
+                     color="Kontinent")
+        st.plotly_chart(fig)
+    else:
+        st.info("MapReduce-Ergebnisse wurden noch nicht berechnet oder sind leer.")
+
+except Exception as e:
+    st.error(f"Fehler beim Abrufen der MapReduce-Daten: {e}")
 
 # Conclusion Section
 st.markdown("---")

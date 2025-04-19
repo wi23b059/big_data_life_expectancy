@@ -3,7 +3,6 @@ version: '3.7'
 volumes:
   mongo_data:
 
-
 services:
   mongodb:
     image: mongo:latest
@@ -15,6 +14,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=example
+
   dashboard:
     build: .
     ports:
@@ -23,23 +23,26 @@ services:
     restart: always
     volumes:
       - .:/app
+    environment:
+      - MONGODB_URI=mongodb://root:example@mongodb:27017/
+    depends_on:
+      - mongodb
 
   jupyter:
     image: jupyter/scipy-notebook:latest
     container_name: jupyter-notebook
     ports:
-      - "8888:8888" # Jupyter Notebook-Standard-Port
+      - "8888:8888"
     volumes:
-      - ./notebooks:/home/jovyan/work # Notebook-Daten werden auf deinem lokalen System gespeichert
-      - ./quelldateien:/home/jovyan/files # Mount local folder for Excel and CSV files
+      - ./notebooks:/home/jovyan/work
+      - ./quelldateien:/home/jovyan/files
     environment:
-      - JUPYTER_TOKEN=mytoken # Authentifizierungstoken für Jupyter Notebook
+      - JUPYTER_TOKEN=mytoken
     depends_on:
       - mongodb
     command: >
       start-notebook.sh --NotebookApp.token='mytoken'
       && pip install pycountry
-  
 
   # Stop the container
   #docker stop life_expectancy_dashboard
@@ -57,3 +60,9 @@ services:
 
   # Build and start the containers
   #docker-compose up -d --build
+
+  # Start all services in background (Jupyter, MongoDB, Dashboard):
+  # docker-compose up -d
+
+  # Launch the updated Streamlit dashboard with pie chart + MapReduce:
+  # streamlit run life_expectancy_dashboard_with_pie_mapreduce.py
