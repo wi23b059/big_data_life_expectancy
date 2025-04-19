@@ -1,4 +1,3 @@
-# Dockerfile
 FROM python:3.10-slim
 
 # Set work directory
@@ -9,7 +8,18 @@ COPY . /app
 
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install streamlit pandas matplotlib seaborn plotly pycountry xlrd openpyxl protobuf
+    && pip install streamlit \
+    pandas \
+    matplotlib \
+    seaborn \
+    plotly \
+    pycountry \
+    xlrd \
+    openpyxl \
+    protobuf \
+    pymongo \
+    scikit-learn \
+    numpy
 
 # Configure Streamlit for headless mode and reduce CORS warnings
 RUN mkdir -p ~/.streamlit && echo "\

@@ -36,11 +36,24 @@ services:
       - JUPYTER_TOKEN=mytoken # Authentifizierungstoken für Jupyter Notebook
     depends_on:
       - mongodb
+    command: >
+      start-notebook.sh --NotebookApp.token='mytoken'
+      && pip install pycountry
+  
 
-# Stop the container
+  # Stop the container
   #docker stop life_expectancy_dashboard
 
   # Remove the container
   #docker rm life_expectancy_dashboard
 
   #docker rm -f life_expectancy_dashboard
+
+  # Stop and remove existing containers and volumes
+  #docker-compose down -v
+
+  # Remove any existing images
+  #docker system prune -f
+
+  # Build and start the containers
+  #docker-compose up -d --build
