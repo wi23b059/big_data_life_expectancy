@@ -1,0 +1,130 @@
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+Display - GUI
+
+1. Title
+
+2. short description of the website
+
+3. first display area
+    3.1 option to choose between a table or graphical view
+    3.2 click through tabs between the tables/graphs of the topics
+    3.2.1 the option for smokers has an extra to pick the time
+
+4. second display area (bargraphs would fit as best)
+    4.1 analyze if the single problem has an affect on the life expectancy or 
+        if it has more factors and display it with chooseable options
+        4.1.1 single affections
+            Options:    I.      affect of alcohol
+                        II.     affect of smoking
+                        III.    affect of obesity
+                        IV.     gpd connected with life expectancy
+        4.1.2 multiple affections
+            Options:    I.      affect of alcohol and smoking
+                        II.     affect of alcohol and obesity
+                        III.    affect of smoking and obesity
+    4.2 either using a dropdown menu or use checkboxes
+
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+Analyze
+
+1. get data from csv-files
+
+2. drop some columns/rows which will never be used
+    for some cols the command dropna(axis=1, how='all') could be used, but a list
+    with which cols should be dropped, will make the work too because not ever col is empty
+    2.1 life_expectancy:
+        I.      IndicatorCode
+        II.     ValueType
+        III.    ParentLocationCode
+        IV.     Location type
+        V.      SpatialDimValueCode
+        VI.     Period type
+        VII.    IsLatestYear
+        VIII.   Dim1 type
+        IX.     Dim1
+        X.      Dim1ValueCode
+        XI.     Dim2 type
+        XII.    Dim2
+        XIII.   Dim2ValueCode
+        XIV.    Dim3 type 
+        XV.     Dim3
+        XVI.    Dim3ValueCode
+        XV.     DataSourceDimValueCode
+        XVI.    DataSource
+        XVII.   FactValueNumericPrefix
+        XVIII.  FactValueUoM
+        XIX.    FactValueNumericLowPrefix
+        XX.     FactValueNumericHighPrefix
+        XXI.    FactValueTranslationID
+        XXII.   FactComments
+        XXIII.  Language
+        XXIV.   DateModified
+    2.2 alcohol
+        I.      IndicatorCode
+        II.     ValueType
+        III.    ParentLocationCode
+        IV.     Location type
+        V.      SpatialDimValueCode
+        VI.     Period type
+        VII.    IsLatestYear
+        VIII.   Dim1 type
+        IX.     Dim1
+        X.      Dim1ValueCode
+        XI.     Dim2 type
+        XII.    Dim2
+        XIII.   Dim2ValueCode
+        XIV.    Dim3 type
+        XV.     Dim3
+        XVI.    Dim3ValueCode
+        XVII.   DataSourceDimValueCode
+        XVIII.  DataSource
+        XIX.    FactValueNumericPrefix
+        XX.     FactValueUoM
+        XXI.    FactValueNumericLowPrefix
+        XXII.   FactValueNumericLow
+        XXIII.  FactValueNumericHighPrefix
+        XXIV.   FactValueNumericHigh
+        XXV.    FactValueTranslationID
+        XXVI.   FactComments
+        XXVII.  Language
+        XXVIII. DateModified
+    2.3 daily_smokers (not every time but for most)
+        I.      men
+        II.     women
+    2.4 gpd
+        I.      1980-2000 
+        II.     2022-2029
+        III.    every country that has no data betwenn 2004 and 2022
+    2.5 obesity
+        I.      IndicatorCode
+        II.     ValueType
+        III.    ParentLocationCode
+        IV.     Location type
+        V.      SpatialDimValueCode
+        VI.     Period type
+        VII.    IsLatestYear
+        VIII.   Dim1 type
+        IX.     Dim1
+        X.      Dim1ValueCode
+        XI.     Dim2 type
+        XII.    Dim2
+        XIII.   Dim2ValueCode
+        XIV.    Dim3 type
+        XV.     Dim3
+        XVI.    Dim3ValueCode
+        XVII.   DataSourceDimValueCode,
+        XVIII.  DataSource
+        XIX.    FactValueNumericPrefix
+        XX.     FactValueUoM
+        XXI.    FactValueNumericLowPrefix
+        XXII.   FactValueNumericHighPrefix
+        XXIII.  FactValueTranslationID
+        XXIV.   FactComments
+        XXV.    Language,
+        XXVI.   DateModified

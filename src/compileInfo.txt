@@ -1,0 +1,15 @@
+1. download Python       https://www.python.org/downloads/
+
+2. create in VSCode a python environment 
+    2.1 Ctrl+Shift+P
+    2.2 Select Venv
+    2.3 Select your Python
+    2.4 move/copy the src order into the .venv directory
+
+3. install via terminal following packages
+    3.1 pip install pandas
+    3.2 pip install streamlit
+    3.3 python -m pip install statsmodels
+
+4. run code, type in terminal "streamlit run main.py"
+ATTENTION: make sure you are in the right directory, only functions in src
